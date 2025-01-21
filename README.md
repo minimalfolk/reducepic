@@ -1,0 +1,2 @@
+# reducepic
+reduce picture 
