@@ -7,7 +7,11 @@ document.getElementById('fileInput').addEventListener('change', (event) => {
         reader.onload = (e) => {
             const uploadedImage = document.getElementById('uploadedImage');
             uploadedImage.src = e.target.result;
-            document.getElementById('imagePreview').style.display = 'block';
+
+            // Add animation class to the preview section
+            const previewSection = document.getElementById('imagePreview');
+            previewSection.classList.add('show');
+
             uploadedFile = file;
             document.getElementById('errorMessage').textContent = '';
         };
@@ -18,11 +22,15 @@ document.getElementById('fileInput').addEventListener('change', (event) => {
 document.getElementById('resizeBtn').addEventListener('click', () => {
     const resizeInput = document.getElementById('resizeInput').value;
     if (!uploadedFile) {
-        document.getElementById('errorMessage').textContent = 'Please upload an image first.';
+        const errorMessage = document.getElementById('errorMessage');
+        errorMessage.textContent = 'Please upload an image first.';
+        errorMessage.classList.add('shake');
         return;
     }
     if (isNaN(resizeInput) || resizeInput <= 0 || resizeInput > 99) {
-        document.getElementById('errorMessage').textContent = 'Please enter a valid percentage (1-99).';
+        const errorMessage = document.getElementById('errorMessage');
+        errorMessage.textContent = 'Please enter a valid percentage (1-99).';
+        errorMessage.classList.add('shake');
         return;
     }
     resizeImage(resizeInput / 100);
@@ -45,9 +53,12 @@ function resizeImage(scale) {
                 const resizedImage = document.getElementById('resizedImage');
                 resizedImage.src = resizedUrl;
 
+                // Display resized image section with animation
+                const resultSection = document.getElementById('result');
+                resultSection.classList.add('show');
+
                 document.getElementById('finalSize').textContent = `Resized Image Size: ${(blob.size / 1024).toFixed(2)} KB`;
                 document.getElementById('downloadBtn').href = resizedUrl;
-                document.getElementById('result').style.display = 'block';
             }, 'image/jpeg', 0.8);
         };
     };
