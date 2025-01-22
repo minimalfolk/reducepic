@@ -3,35 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A tool to reduce image size">
-    <title>Reducepic</title>
+    <meta name="description" content="A tool to reduce image size and download it">
+    <title>ReducePic</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container fade-in">
-        <h1 class="title">Reduce Your Pic</h1>
+    <div class="container">
+        <h1 class="title">Reduce Your Image</h1>
         <input type="file" id="fileInput" accept="image/*">
         <div class="resize-section">
-            <label for="resizeInput">Percent of Size: </label>
-            <input type="number" id="resizeInput" placeholder="Enter percentage (e.g., 1 to 99)">
+            <label for="resizeInput">Resize Percentage:</label>
+            <input type="number" id="resizeInput" placeholder="Enter percentage (1-99)" min="1" max="99">
         </div>
-        <button id="resizeBtn" class="animated-btn">Process Now</button>
-        <div id="imagePreview" style="display:none;" class="fade-in">
+        <button id="resizeBtn" class="action-btn">Resize and Download</button>
+
+        <div id="imagePreview" class="preview-section">
             <h3>Uploaded Image</h3>
-            <div class="image-preview" id="uploadedImagePreview">
+            <div class="image-preview">
                 <img id="uploadedImage" src="" alt="Uploaded Image">
             </div>
         </div>
-        <div id="result" class="result fade-in">
+
+        <div id="result" class="result-section">
             <h3>Resized Image</h3>
-            <div class="image-preview" id="resizedImagePreview">
+            <div class="image-preview">
                 <img id="resizedImage" src="" alt="Resized Image">
             </div>
             <p id="finalSize"></p>
-            <a id="downloadBtn" href="#" download="reducepic.jpg">
-                <button class="animated-btn">Download Resized Image</button>
-            </a>
+            <a id="downloadBtn" href="#" download="resized_image.jpg" class="action-btn">Download Resized Image</a>
         </div>
+
         <div class="info" id="errorMessage"></div>
     </div>
     <script src="script.js" defer></script>
