@@ -1,42 +1,34 @@
 let uploadedFile = null;
 
-document.addEventListener('change', (event) => {
-    if (event.target.id === 'fileInput') handleFileUpload(event);
-});
-
-document.addEventListener('click', (event) => {
-    if (event.target.id === 'resizeBtn') handleResize();
-});
-
-function handleFileUpload(event) {
+document.getElementById('fileInput').addEventListener('change', (event) => {
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
         reader.onload = (e) => {
-            const imgElement = document.getElementById('uploadedImage');
-            imgElement.src = e.target.result;
+            const uploadedImage = document.getElementById('uploadedImage');
+            uploadedImage.src = e.target.result;
             document.getElementById('imagePreview').style.display = 'block';
             uploadedFile = file;
             document.getElementById('errorMessage').textContent = '';
         };
         reader.readAsDataURL(file);
     }
-}
+});
 
-function handleResize() {
+document.getElementById('resizeBtn').addEventListener('click', () => {
     const resizeInput = document.getElementById('resizeInput').value;
     if (!uploadedFile) {
         document.getElementById('errorMessage').textContent = 'Please upload an image first.';
         return;
     }
-    if (resizeInput <= 0 || isNaN(resizeInput)) {
-        document.getElementById('errorMessage').textContent = 'Please enter a valid percentage.';
+    if (isNaN(resizeInput) || resizeInput <= 0 || resizeInput > 99) {
+        document.getElementById('errorMessage').textContent = 'Please enter a valid percentage (1-99).';
         return;
     }
-    processImage(resizeInput / 100);
-}
+    resizeImage(resizeInput / 100);
+});
 
-function processImage(resizePercentage) {
+function resizeImage(scale) {
     const reader = new FileReader();
     reader.onload = (event) => {
         const img = new Image();
@@ -44,16 +36,19 @@ function processImage(resizePercentage) {
         img.onload = () => {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            canvas.width = img.width * resizePercentage;
-            canvas.height = img.height * resizePercentage;
+            canvas.width = img.width * scale;
+            canvas.height = img.height * scale;
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
             canvas.toBlob((blob) => {
-                const newUrl = URL.createObjectURL(blob);
-                document.getElementById('resizedImage').src = newUrl;
-                document.getElementById('finalSize').textContent = `Final Size: ${(blob.size / 1024).toFixed(2)} KB`;
-                document.getElementById('downloadBtn').href = newUrl;
+                const resizedUrl = URL.createObjectURL(blob);
+                const resizedImage = document.getElementById('resizedImage');
+                resizedImage.src = resizedUrl;
+
+                document.getElementById('finalSize').textContent = `Resized Image Size: ${(blob.size / 1024).toFixed(2)} KB`;
+                document.getElementById('downloadBtn').href = resizedUrl;
                 document.getElementById('result').style.display = 'block';
-            }, 'image/jpeg', 0.7);
+            }, 'image/jpeg', 0.8);
         };
     };
     reader.readAsDataURL(uploadedFile);
