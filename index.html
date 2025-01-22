@@ -6,6 +6,40 @@
     <meta name="description" content="A tool to reduce image size">
     <title>Reducepic</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Add additional styles for the new section */
+        .how-to-section {
+            margin-top: 20px;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+        .how-to-section h2 {
+            font-size: 24px;
+        }
+        .how-to-section ol {
+            margin-left: 20px;
+        }
+        .blog-section {
+            margin-top: 20px;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+        .blog-post {
+            margin-bottom: 15px;
+        }
+        /* Mobile-friendly styles */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            .how-to-section h2, .blog-section h3 {
+                font-size: 20px;
+            }
+            .how-to-section ol, .blog-section p {
+                font-size: 16px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -34,6 +68,33 @@
         </div>
         <div class="info" id="errorMessage"></div>
     </div>
+
+    <!-- How To Reduce Picture Free Section -->
+    <div class="how-to-section">
+        <h2>How To Reduce Picture Free</h2>
+        <p>Follow these simple steps to reduce the size of your pictures for free:</p>
+        <ol>
+            <li>Click the "Choose File" button to upload your picture.</li>
+            <li>Enter the percentage by which you want to reduce the picture size in the "Percent of Size" field.</li>
+            <li>Click the "Process Now" button to resize your picture.</li>
+            <li>Once processed, you can download the resized image by clicking the "Download Resized Image" button.</li>
+        </ol>
+    </div>
+
+    <!-- Blog Section -->
+    <div class="blog-section">
+        <h3>Blog</h3>
+        <div class="blog-post">
+            <h4>Post Title 1</h4>
+            <p>Content for the first blog post goes here...</p>
+        </div>
+        <div class="blog-post">
+            <h4>Post Title 2</h4>
+            <p>Content for the second blog post goes here...</p>
+        </div>
+        <!-- Add more blog posts as needed -->
+    </div>
+
     <script defer>
         let uploadedFile = null;
 
