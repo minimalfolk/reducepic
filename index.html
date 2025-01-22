@@ -3,75 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A tool to reduce image size with a great user experience">
-    <title>Reducepic - Home</title>
+    <meta name="description" content="A tool to reduce image size">
+    <title>Reducepic</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <div class="container">
-            <h1>Reduce Your Pic</h1>
-            <input type="file" id="fileInput" accept="image/*">
-            <div class="resize-section">
-                <label for="resizeInput">Percent of Size: </label>
-                <input type="number" id="resizeInput" placeholder="Enter percentage (e.g., 1 to 99)">
-            </div>
-            <button id="resizeBtn">Process Now</button>
-            <div id="imagePreview" style="display:none;">
-                <h3>Uploaded Image</h3>
-                <div class="image-preview" id="uploadedImagePreview">
-                    <img id="uploadedImage" src="" alt="Uploaded Image">
-                </div>
-            </div>
-            <div id="result" class="result">
-                <h3>Resized Image</h3>
-                <div class="image-preview" id="resizedImagePreview">
-                    <img id="resizedImage" src="" alt="Resized Image">
-                </div>
-                <p id="finalSize"></p>
-                <a id="downloadBtn" href="#" download="reducepic.jpg">
-                    <button>Download Resized Image</button>
-                </a>
-            </div>
-            <div class="info" id="errorMessage"></div>
+    <div class="container">
+        <h1>Reduce Your Pic</h1>
+        <input type="file" id="fileInput" accept="image/*">
+        <div class="resize-section">
+            <label for="resizeInput">Percent of Size: </label>
+            <input type="number" id="resizeInput" placeholder="Enter percentage (e.g., 1 to 99)">
         </div>
+        <button id="resizeBtn">Process Now</button>
+        <div id="imagePreview" style="display:none;">
+            <h3>Uploaded Image</h3>
+            <div class="image-preview" id="uploadedImagePreview">
+                <img id="uploadedImage" src="" alt="Uploaded Image">
+            </div>
+        </div>
+        <div id="result" class="result">
+            <h3>Resized Image</h3>
+            <div class="image-preview" id="resizedImagePreview">
+                <img id="resizedImage" src="" alt="Resized Image">
+            </div>
+            <p id="finalSize"></p>
+            <a id="downloadBtn" href="#" download="reducepic.jpg">
+                <button>Download Resized Image</button>
+            </a>
+        </div>
+        <div class="info" id="errorMessage"></div>
+    </div>
+    <script defer>
+        let uploadedFile = null;
 
-        <!-- Detailed Explanation Section -->
-        <div class="how-to-section">
-            <h2>How to Reduce Picture</h2>
-            <p>Follow the steps below to reduce the size of your picture:</p>
-            <ol>
-                <li>Click on the "Choose File" button to upload your picture.</li>
-                <li>Enter the percentage by which you want to reduce the picture size.</li>
-                <li>Click on the "Process Now" button to resize the picture.</li>
-                <li>Preview the resized picture and download it if you are satisfied with the result.</li>
-            </ol>
-            <p>This tool uses JavaScript to read the uploaded image, resize it using a canvas element, and then provide a download link for the resized image.</p>
-        </div>
+        document.addEventListener('change', function(event) {
+            if (event.target.id === 'fileInput') {
+                handleFileUpload(event);
+            }
+        });
 
-        <!-- JavaScript Explanation Section -->
-        <div class="js-explanation-section">
-            <h2>JavaScript Code Explanation</h2>
-            <p>The JavaScript code performs the following tasks:</p>
-            <ol>
-                <li>Handles the file upload and previews the uploaded image.</li>
-                <li>Processes the image by resizing it using a canvas element.</li>
-                <li>Displays the resized image and provides a download link.</li>
-            </ol>
-        </div>
-    </main>
-    <footer>
-        <p>&copy; 2025 Reducepic</p>
-    </footer>
-    <script src="script.js" defer></script>
+        document.addEventListener('click', function(event) {
+            if (event.target.id === 'resizeBtn') {
+                handleResize();
+            }
+        });
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgElement = document.getElementById('uploadedImage');
+                    imgElement.src = e.target.result;
+                    document.getElementById('imagePreview').style.display = 'block';
+                    uploadedFile = file;
+                    document.getElementById('errorMessage').textContent = '';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleResize() {
+            const resizeInput = document.getElementById('resizeInput').value;
+            if (!uploadedFile) {
+                document.getElementById('errorMessage').textContent = 'Please upload an image first.';
+                return;
+            }
+            if (resizeInput <= 0 || isNaN(resizeInput)) {
+                document.getElementById('errorMessage').textContent = 'Please enter a valid percentage.';
+                return;
+            }
+            const resizePercentage = resizeInput / 100;
+            processImage(resizePercentage);
+        }
+
+        function processImage(resizePercentage) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = img.width * resizePercentage;
+                    canvas.height = img.height * resizePercentage;
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    canvas.toBlob(function(blob) {
+                        const newSize = (blob.size / 1024).toFixed(2);
+                        const newUrl = URL.createObjectURL(blob);
+                        document.getElementById('resizedImage').src = newUrl;
+                        document.getElementById('finalSize').textContent = `Final Image Size: ${newSize} KB`;
+                        const downloadLink = document.getElementById('downloadBtn');
+                        downloadLink.href = newUrl;
+                        document.getElementById('result').style.display = 'block';
+                    }, 'image/jpeg', 0.7);
+                };
+            };
+            reader.readAsDataURL(uploadedFile);
+        }
+    </script>
 </body>
 </html>
