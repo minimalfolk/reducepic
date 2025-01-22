@@ -2,42 +2,40 @@
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 0;
     background: url('https://via.placeholder.com/1500') no-repeat center center fixed;
     background-size: cover;
-    overflow: hidden;
+    color: #333;
+    overflow-y: auto;
+    height: 100vh;
 }
 
 .container {
     background: rgba(255, 255, 255, 0.9);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
-    width: 400px;
+    margin: 50px auto;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 600px;
     text-align: center;
-    backdrop-filter: blur(12px);
-    animation: fadeIn 1.5s ease-in-out;
 }
 
 .title {
     color: #4CAF50;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
-    animation: slideDown 1.5s ease-out;
 }
 
 input[type="file"], input[type="number"] {
-    margin: 15px 0;
+    margin: 10px 0;
     width: 100%;
     padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
     font-size: 16px;
-    transition: all 0.3s ease;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    transition: 0.3s;
 }
 
 input:hover, input:focus {
@@ -46,76 +44,47 @@ input:hover, input:focus {
     box-shadow: 0 0 5px #4CAF50;
 }
 
-button {
-    padding: 14px 20px;
-    border: none;
+.action-btn {
+    padding: 12px 20px;
     background-color: #4CAF50;
     color: white;
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 20px;
-    border-radius: 8px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: 0.3s;
+    margin-top: 20px;
+    text-decoration: none;
 }
 
-button:hover {
+.action-btn:hover {
     background-color: #45a049;
-    transform: scale(1.05);
     box-shadow: 0 5px 15px rgba(72, 239, 90, 0.5);
+    transform: scale(1.05);
+}
+
+.preview-section, .result-section {
+    margin-top: 20px;
+}
+
+.image-preview {
+    width: 200px;
+    height: 200px;
+    margin: 10px auto;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
 }
 
 .image-preview img {
     width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.result, #imagePreview {
-    display: none;
-    animation: fadeIn 1s ease-in-out;
+    height: 100%;
+    object-fit: contain;
 }
 
 .info {
     margin-top: 15px;
     font-size: 14px;
     color: red;
-    font-weight: bold;
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.animated-btn {
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
 }
