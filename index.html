@@ -3,69 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A tool to reduce image size">
-    <title>Reducepic</title>
+    <meta name="description" content="A tool to reduce image size with a great user experience">
+    <title>Reducepic - Home</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Reduce Your Pic</h1>
-        <input type="file" id="fileInput" accept="image/*">
-        <div class="resize-section">
-            <label for="resizeInput">Percent of Size: </label>
-            <input type="number" id="resizeInput" placeholder="Enter percentage (e.g., 1 to 99)">
-        </div>
-        <button id="resizeBtn">Process Now</button>
-        <div id="imagePreview" style="display:none;">
-            <h3>Uploaded Image</h3>
-            <div class="image-preview" id="uploadedImagePreview">
-                <img id="uploadedImage" src="" alt="Uploaded Image">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h1>Reduce Your Pic</h1>
+            <input type="file" id="fileInput" accept="image/*">
+            <div class="resize-section">
+                <label for="resizeInput">Percent of Size: </label>
+                <input type="number" id="resizeInput" placeholder="Enter percentage (e.g., 1 to 99)">
             </div>
-        </div>
-        <div id="result" class="result">
-            <h3>Resized Image</h3>
-            <div class="image-preview" id="resizedImagePreview">
-                <img id="resizedImage" src="" alt="Resized Image">
+            <button id="resizeBtn">Process Now</button>
+            <div id="imagePreview" style="display:none;">
+                <h3>Uploaded Image</h3>
+                <div class="image-preview" id="uploadedImagePreview">
+                    <img id="uploadedImage" src="" alt="Uploaded Image">
+                </div>
             </div>
-            <p id="finalSize"></p>
-            <a id="downloadBtn" href="#" download="reducepic.jpg">
-                <button>Download Resized Image</button>
-            </a>
+            <div id="result" class="result">
+                <h3>Resized Image</h3>
+                <div class="image-preview" id="resizedImagePreview">
+                    <img id="resizedImage" src="" alt="Resized Image">
+                </div>
+                <p id="finalSize"></p>
+                <a id="downloadBtn" href="#" download="reducepic.jpg">
+                    <button>Download Resized Image</button>
+                </a>
+            </div>
+            <div class="info" id="errorMessage"></div>
         </div>
-        <div class="info" id="errorMessage"></div>
-    </div>
 
-    <!-- How To Reduce Picture Free Section -->
-    <div class="how-to-section">
-        <h2>How To Reduce Picture Free</h2>
-        <p>Follow these simple steps to reduce the size of your pictures for free:</p>
-        <ol>
-            <li>Click the "Choose File" button to upload your picture.</li>
-            <li>Enter the percentage by which you want to reduce the picture size in the "Percent of Size" field.</li>
-            <li>Click the "Process Now" button to resize your picture.</li>
-            <li>Once processed, you can download the resized image by clicking the "Download Resized Image" button.</li>
-        </ol>
-    </div>
-
-    <!-- Blog Section -->
-    <div class="blog-section">
-        <h3>Blog</h3>
-        <div class="blog-post">
-            <h4>Post Title 1</h4>
-            <p>Content for the first blog post goes here...</p>
+        <!-- Detailed Explanation Section -->
+        <div class="how-to-section">
+            <h2>How to Reduce Picture</h2>
+            <p>Follow the steps below to reduce the size of your picture:</p>
+            <ol>
+                <li>Click on the "Choose File" button to upload your picture.</li>
+                <li>Enter the percentage by which you want to reduce the picture size.</li>
+                <li>Click on the "Process Now" button to resize the picture.</li>
+                <li>Preview the resized picture and download it if you are satisfied with the result.</li>
+            </ol>
+            <p>This tool uses JavaScript to read the uploaded image, resize it using a canvas element, and then provide a download link for the resized image.</p>
         </div>
-        <div class="blog-post">
-            <h4>Post Title 2</h4>
-            <p>Content for the second blog post goes here...</p>
+
+        <!-- JavaScript Explanation Section -->
+        <div class="js-explanation-section">
+            <h2>JavaScript Code Explanation</h2>
+            <p>The JavaScript code performs the following tasks:</p>
+            <ol>
+                <li>Handles the file upload and previews the uploaded image.</li>
+                <li>Processes the image by resizing it using a canvas element.</li>
+                <li>Displays the resized image and provides a download link.</li>
+            </ol>
         </div>
-        <!-- Add more blog posts as needed -->
-    </div>
-
-    <!-- Footer Section -->
-    <div class="footer">
-        <p>©2025 Reduce Pic.</p>
-    </div>
-
+    </main>
+    <footer>
+        <p>&copy; 2025 Reducepic</p>
+    </footer>
     <script src="script.js" defer></script>
 </body>
 </html>
